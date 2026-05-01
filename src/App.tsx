@@ -7,27 +7,37 @@ import Pricing from './components/pricing';
 import Login from './components/login';
 import Signup from './components/signup';
 import Contact from './components/contact';
+import Footer from './components/footer';
+import Careers from './components/careers';
+import FAQS from './components/faqs';
+//import { useState } from 'react';
 
 function App () {
+  //const [collapsed, setCollapsed] = useState(false);
 
   return (
     <>
-        <div className="flex flex-col md:flex-row min-h-screen">
+        {/**outer dive and inner to keep layout consistent (footer stays where it is) */}
+        <div className="flex flex-col min-h-screen">
           <Sidebar />
 
-          <div className="flex-1 p-6 md:ml-20 lg:ml-70">
+          <div className="flex p-10 flex-1
+                          md:ml-65 lg:ml-100">
 
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/location" element={<Location />} />
-                <Route path="/pricing" element={<Pricing />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/contact" element={<Contact />} />
-              </Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/location" element={<Location />} />
+                  <Route path="/pricing" element={<Pricing />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/careers" element={<Careers />} />
+                  <Route path="/faqs" element={<FAQS />} />
+                </Routes>
           </div>
+          <Footer />
         </div>
     </>
   )
