@@ -12,7 +12,7 @@ const Signup = () => {
                 className="mx-auto"
             >
 
-                <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+                <div className="min-h-screen flex items-center justify-center px-4">
                     <div className="w-full max-w-5xl bg-white shadow-lg rounded-2xl overflow-hidden grid md:grid-cols-2">
 
                         {/* Left Side - Form */}

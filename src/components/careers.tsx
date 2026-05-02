@@ -27,7 +27,7 @@ const Careers = () => {
 
                     {/* Values */}
                     <div className="flex flex-col">
-                        <div><h2 className="text-3xl text-center font-bold mb-7 text-cyan-600">Why work with Us ?</h2></div>
+                        <div><h2 className="text-3xl text-center font-bold mb-7">Why work with Us ?</h2></div>
 
                         <div>
                             <section className="grid md:grid-cols-3 gap-6 mb-12">
@@ -48,7 +48,7 @@ const Careers = () => {
 
                     {/* Job Listings */}
                     <section>
-                        <h2 className="text-2xl font-bold mb-6 text-center text-amber-600">
+                        <h2 className="text-2xl font-bold mb-6 text-center">
                         Open Positions
                         </h2>
 

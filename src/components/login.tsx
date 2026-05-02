@@ -22,8 +22,14 @@ const Login = () => {
                 transition={{ duration: 0.5 }}
                 className="mx-auto"
             >
-                <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-                    <div className="w-full max-w-5xl bg-white shadow-lg rounded-2xl overflow-hidden grid md:grid-cols-2">
+                <div className="min-h-screen 
+                                flex items-center justify-center 
+                                px-4">
+                    <div className="w-full max-w-5xl 
+                                bg-white 
+                                shadow-lg rounded-2xl 
+                                overflow-hidden 
+                                grid md:grid-cols-2">
 
                             {/* Left Side - Form */}
                             <div className="p-6 sm:p-10">
@@ -77,31 +83,41 @@ const Login = () => {
                                             Remember Me
                                         </label>
 
-                                        <Link to="#" className="text-blue-500 hover:underline whitespace-nowrap">
+                                        <Link to="/login" className="text-cyan-500 hover:underline whitespace-nowrap">
                                             Forgot Password?
                                         </Link>
                                     </div>
 
                                     {/* Login Button */}
-                                    <button className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition">
-                                    Login
+                                    <button className="w-full 
+                                    bg-cyan-500 py-3 rounded-lg 
+                                    hover:bg-amber-600 hover:text-white
+                                    transition cursor-pointer
+                                    shadow-lg">
+                                            Login
                                     </button>
 
                                     {/* Divider */}
                                     <div className="text-center text-gray-400">or</div>
 
                                         {/* Social Buttons */}
-                                        <button className="w-full border border-gray-300 py-3 rounded-lg hover:bg-gray-100 transition">
+                                        <button className="w-full 
+                                        border-gray-300 py-3 rounded-lg 
+                                        bg-gray-200 hover:bg-gray-300 hover:text-white
+                                        transition cursor-pointer">
                                         Continue with Google
                                         </button>
 
-                                        <button className="w-full border border-blue-500 text-blue-500 py-3 rounded-lg hover:bg-blue-50 transition">
+                                        <button className="w-full 
+                                        bg-amber-500 py-3 rounded-lg 
+                                        hover:bg-cyan-600 hover:text-white
+                                        transition cursor-pointer">
                                         Continue with Facebook
                                         </button>
 
                                         {/* Signup */}
                                         <p className="text-center text-sm mt-4">
-                                        <Link to="/signup" className="text-blue-500 hover:underline">
+                                        <Link to="/signup" className="text-cyan-500 hover:underline">
                                             Sign up
                                         </Link>
                                         </p>

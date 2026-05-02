@@ -1,7 +1,10 @@
 import { motion } from "motion/react";
 import { teamMembers } from "../data/teamMembers";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
+
+    const navigate = useNavigate();
 
     return (
         <>
@@ -30,7 +33,10 @@ const About = () => {
                         {/* Mission + Vision */}
                         <section className="grid md:grid-cols-2 gap-8 mb-12">
 
-                            <div className="bg-white shadow-md rounded-2xl p-6">
+                            <div className="bg-white 
+                                            shadow-md rounded-2xl p-6
+                                            hover:shadow-lg hover:shadow-cyan-200 
+                                            cursor-pointer transition">
                                 <h2 className="text-2xl font-semibold mb-3 text-cyan-600">
                                 Our Mission
                                 </h2>
@@ -40,7 +46,11 @@ const About = () => {
                                 </p>
                             </div>
 
-                            <div className="bg-white shadow-md rounded-2xl p-6">
+                            <div className="bg-white 
+                                            shadow-md 
+                                            hover:shadow-lg hover:shadow-cyan-200 
+                                            rounded-2xl p-6
+                                            cursor-pointer transition">
                                 <h2 className="text-2xl font-semibold mb-3 text-cyan-600">
                                 Our Vision
                                 </h2>
@@ -61,10 +71,11 @@ const About = () => {
                                         (value, index) => (
                                         <div
                                             key={index}
-                                            className="bg-white p-6 rounded-2xl shadow-sm h-full 
-                                                    transition duration-300 
-                                                    hover:shadow-lg hover:-translate-y-1 hover:outline-2 outline-cyan-600
-                                                    cursor-pointer"
+                                            className="bg-white p-6 rounded-2xl 
+                                                    shadow-sm h-full 
+                                                    hover:shadow-lg hover:-translate-y-1
+                                                    hover:shadow-amber-200 hover:shadow-lg
+                                                    cursor-pointer transition duration-300"
                                         >
                                             <h5 className="font-semibold text-gray-800">{value}</h5>
                                         </div>
@@ -84,9 +95,8 @@ const About = () => {
                                         <div key={member.id}>
                                             <div
                                                 className="bg-white rounded-2xl shadow-sm h-full overflow-hidden 
-                                                        transition duration-300 
-                                                        hover:shadow-lg
-                                                        cursor-pointer"
+                                                        hover:shadow-lg hover:shadow-cyan-200
+                                                        cursor-pointer transition duration-300"
                                             >
                                                 {/* Image */}
                                                 <img
@@ -134,18 +144,18 @@ const About = () => {
                         </section>
 
                         {/* Call to Action */}
-                        <section className="text-center bg-amber-600 text-white p-8 rounded-2xl">
-                            <h2 className="text-2xl font-semibold mb-4">
+                        <section className="text-center bg-amber-600 p-8 rounded-2xl">
+                            <h2 className="text-2xl font-semibold mb-4 text-white">
                                 Ready to Get Started?
                             </h2>
-                            <p className="mb-4">
+                            <p className="mb-4 text-white">
                                 Join our childcare community and give your child the best start.
                             </p>
-                            <button className="bg-white text-amber-600 
+                            <button className="bg-white 
                                                px-6 py-2 rounded-full font-medium 
-                                               hover:bg-amber-100 
+                                               hover:bg-amber-500 hover:text-white
                                                transition-all
-                                               cursor-pointer">
+                                               cursor-pointer" onClick={() => navigate("/signup")}>
                                 Sign Up
                             </button>
                         </section>

@@ -12,6 +12,8 @@ import Careers from './components/careers';
 import FAQS from './components/faqs';
 //import { useState } from 'react';
 
+import { locationData } from "./data/locationData";
+
 function App () {
   //const [collapsed, setCollapsed] = useState(false);
 
@@ -28,7 +30,7 @@ function App () {
                   <Route path="/" element={<Home />} />
                   <Route path="/home" element={<Home />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/location" element={<Location />} />
+                  <Route path="/location" element={<Location locations={locationData} />} />
                   <Route path="/pricing" element={<Pricing />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />

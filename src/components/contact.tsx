@@ -16,10 +16,11 @@ const Contact = () => {
                         {/* Header */}
                         <div className="text-center mb-12">
                             <h1 className="text-4xl font-bold text-gray-800 mb-3">
-                                We'd love to hear from you 💬
+                                We'd love to hear from you 📣
                             </h1>
                             <p className="text-gray-600 max-w-2xl mx-auto">
-                                Whether you have questions, feedback, or just want to learn more about our childcare services, we're here to help.
+                                Whether you have questions, feedback, 
+                                or just want to learn more about our childcare services, we're here to help.
                             </p>
                         </div>
 
@@ -28,7 +29,10 @@ const Contact = () => {
                             {contactInfo.map((item, index) => (
                                 <div
                                     key={index}
-                                    className="bg-white p-6 rounded-2xl shadow hover:shadow-md transition"
+                                    className="bg-white p-6 
+                                    rounded-2xl 
+                                    shadow hover:shadow-lg hover:shadow-amber-200
+                                    transition cursor-pointer"
                                 >
                                     <h3 className="font-semibold text-lg text-gray-800 mb-1">
                                         {item.title}
@@ -44,7 +48,7 @@ const Contact = () => {
                         </div>
 
                         {/* Form Section */}
-                        <div className="bg-white rounded-2xl shadow p-8">
+                        <div className="bg-white rounded-2xl shadow-md p-8">
                             <h2 className="text-2xl font-semibold text-gray-800 mb-6">
                                 Send us a message
                             </h2>
@@ -55,13 +59,13 @@ const Contact = () => {
                                         type="text"
                                         placeholder="Your Name"
                                         className="w-full p-3 shadow-lg rounded-lg 
-                                        focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                        focus:outline-none focus:ring-2 focus:ring-cyan-500 required"
                                     />
                                     <input
                                         type="email"
                                         placeholder="Your Email"
                                         className="w-full p-3 shadow-lg rounded-lg 
-                                        focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                        focus:outline-none focus:ring-2 focus:ring-cyan-500 required"
                                     />
                                 </div>
 
@@ -77,15 +81,16 @@ const Contact = () => {
                                 <textarea
                                     rows={5}
                                     placeholder="Write your message..."
-                                    className="w-full p-3 border rounded-lg 
+                                    className="w-full p-3 rounded-lg shadow-lg
                                     focus:outline-none focus:ring-2 focus:ring-cyan-500"
                                 />
 
                                 <button
                                     type="submit"
-                                    className="bg-cyan-600 text-white py-3 rounded-lg 
-                                    font-medium 
-                                    hover:bg-amber-600 transition cursor-pointer"
+                                    className="bg-cyan-600 py-3 rounded-lg 
+                                    font-medium shadow-lg
+                                    hover:bg-amber-600 hover:text-white
+                                    transition cursor-pointer"
                                 >
                                     Send Message
                                 </button>

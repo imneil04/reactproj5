@@ -102,7 +102,7 @@ const Sidebar = () => {
                      {!collapsed && (
                         <div>
                         <h2 className="text-xl text-bold text-gray-700">
-                            ChildCare placeholder
+                            Childcare placeholder
                         </h2>
                         <p className="text-xs text-gray-500">
                             Safe, Trusted, & Reliable

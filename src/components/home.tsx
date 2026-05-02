@@ -21,7 +21,7 @@ const Home = () => {
                     <section className="min-h-screen flex items-center justify-center px-6">
                         <div className="max-w-5xl text-center">
                         <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                            Safe & Reliable Childcare
+                            Safe, Trusted, & Reliable Childcare
                             <span className="text-amber-600"> Made Simple</span>
                         </h1>
 
@@ -60,7 +60,8 @@ const Home = () => {
                                 key={index}
                                 className="p-6 bg-white rounded-2xl 
                                 shadow 
-                                hover:shadow-lg transition"
+                                hover:shadow-lg hover:shadow-cyan-200 
+                                transition cursor-pointer"
                             >
                                 <h3 className="text-xl font-semibold">{item.title}</h3>
                                 <p className="mt-3 text-gray-600">{item.desc}</p>
