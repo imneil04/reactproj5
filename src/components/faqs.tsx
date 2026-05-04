@@ -84,8 +84,11 @@ const FAQS = () => {
                         </p>
                         <Link
                             to="/contact"
-                            className="inline-block bg-cyan-600 text-white px-6 py-2 
-                            rounded-lg hover:bg-amber-700 transition"
+                            className="inline-block bg-cyan-600 px-6 py-2 
+                            rounded-lg 
+                            hover:bg-amber-600 hover:text-white
+                            font-medium 
+                            transition"
                         >
                             Contact Us
                         </Link>

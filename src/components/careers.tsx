@@ -67,8 +67,9 @@ const Careers = () => {
 
                             <p className="text-gray-600 mb-4">{job.description}</p>
 
-                            <button className="bg-cyan-600 text-white px-4 py-2 rounded-lg 
-                                    hover:bg-amber-600 transition cursor-pointer">
+                            <button className="bg-cyan-600 px-4 py-2 rounded-lg 
+                                    hover:bg-amber-600 hover:text-white
+                                    transition cursor-pointer">
                                 Apply Now
                             </button>
                             </div>
@@ -85,8 +86,10 @@ const Careers = () => {
                             We're always looking for passionate individuals. Send us your resume!
                         </p>
 
-                        <button className="bg-cyan-600 text-white px-6 py-3 rounded-lg 
-                        hover:bg-amber-600 transition cursor-pointer">
+                        <button className="bg-cyan-600 px-6 py-3 rounded-lg 
+                        hover:bg-amber-600 hover:text-white 
+                        transition cursor-pointer
+                        font-medium">
                         Contact Us
                         </button>
                     </section>
