@@ -6,16 +6,21 @@ import Location from './components/location';
 import Pricing from './components/pricing';
 import Login from './components/login';
 import Signup from './components/signup';
+import Dashboard from './components/dashboard';
 import Contact from './components/contact';
 import Footer from './components/footer';
 import Careers from './components/careers';
 import FAQS from './components/faqs';
-//import { useState } from 'react';
-
 import { locationData } from "./data/locationData";
+
+//navigation rules
+import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
+
 
 function App () {
   //const [collapsed, setCollapsed] = useState(false);
+  //const { user, loading } = useContext(AuthContext);
 
   return (
     <>
@@ -32,8 +37,9 @@ function App () {
                   <Route path="/about" element={<About />} />
                   <Route path="/location" element={<Location locations={locationData} />} />
                   <Route path="/pricing" element={<Pricing />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+                  <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
+                  <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/careers" element={<Careers />} />
                   <Route path="/faqs" element={<FAQS />} />

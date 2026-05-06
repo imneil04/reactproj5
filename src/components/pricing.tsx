@@ -25,10 +25,10 @@ const Pricing = () => {
                             </h1>
                         </div>
                         <div>
-                             <p className="mt-4 text-gray-600 leading-relaxed">
-                                <div>We believe childcare management should be accessible, clear, and easy to use.</div>
-                                <div>Our plans are designed to support families at every stage — without complexity.</div>
-                            </p>
+                             <div className="mt-4 text-gray-600 leading-relaxed">
+                                <p>We believe childcare management should be accessible, clear, and easy to use.</p>
+                                <p>Our plans are designed to support families at every stage — without complexity.</p>
+                            </div>
                         </div>
                     </div>
 

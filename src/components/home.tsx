@@ -34,7 +34,7 @@ const Home = () => {
                             rounded-xl 
                             shadow 
                             hover:bg-amber-600 hover:text-white 
-                            transition cursor-pointer" onClick={() => navigate("/signup")}>
+                            transition cursor-pointer" onClick={() => navigate("/contact")}>
                             Get Started
                             </button>
 

@@ -1,8 +1,84 @@
 import { motion } from "motion/react";
 import lpic1 from "../images/playgroundpic.jpg";
 import { Link } from "react-router-dom";
+//firebase
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../backend/firebase";
+//react 
+//import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+//import type { FormEvent } from "react";
+
 
 const Signup = () => {
+
+    //const navigate = useNavigate();
+
+    //get, set variables
+    const [name, setName ] = useState("");
+    const [email, setEmail ] = useState("");
+    const [phone, setPhone ] = useState("");
+    const [password, setPassword ] = useState("");
+
+    const [ message, setMessage ] = useState("");
+    const [ isSuccess, setIsSuccess ] = useState(false);
+    const [ isLoading, setIsLoading ] = useState(false);
+
+    //function for signup
+    const handleSignUp = async (e: any) => {
+        e.preventDefault();
+
+            //custom error msg (empty fields)
+            //if (!email || !password || !name) {
+                //setMessage("All fields are required. Please fill. ");
+                //return;
+            //}
+
+            try {
+            
+                setIsLoading(true);
+            
+                //create user in Auth
+                const userCredential = await createUserWithEmailAndPassword (
+                    auth,
+                    email,
+                    password
+                );
+
+                const user = userCredential.user;
+
+                setMessage("Account created successfully!✅ Redirecting to dashboard...");
+                setIsSuccess(true);
+
+                //save user info to firestore db
+                await setDoc(doc(db, "users", user.uid), {
+                    name,
+                    email,
+                    phone,
+                    role: "parent",
+                    createdAt: new Date(),
+
+                });
+
+                //setMessage("Account created successfully! Redirecting to dashboard...");
+                //setIsSuccess(true);
+                
+                /*await new Promise((res) => setTimeout(res, 1500));
+                setTimeout(() => {
+                    navigate("/dashboard", { replace: true });
+                }, 1500); */
+
+        }
+        catch (err: unknown) {
+
+           setIsLoading(false);
+
+           setMessage("Please check and fill out form properly.❌");
+        }
+    };
+
+    
     return (
         <>
             <motion.div
@@ -22,24 +98,17 @@ const Signup = () => {
                             Join us and manage your childcare experience
                         </p>
 
-                        <form className="space-y-4">
+                        <form className="space-y-4" onSubmit={handleSignUp}>
 
                             {/* Full Name */}
                             <div className="relative">
                                 <input
                                     type="text"
                                     id="name"
-                                    placeholder=" "
-                                    className="peer w-full border-b border-gray-300 px-3 py-3 focus:outline-none focus:border-blue-500"
-                                />
-                                <label
-                                    htmlFor="name"
-                                    className="absolute left-3 top-3 text-gray-400 text-sm transition-all
-                                            peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
-                                            peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500"
-                                >
-                                Enter Full Name
-                                </label>
+                                    placeholder="Enter Name..."
+                                    className="peer w-full border-b border-gray-300 px-3 py-3 focus:outline-none focus:border-cyan-500"
+                                    onChange={(e) => setName(e.target.value)}
+                                />                   
                             </div>
 
                             {/* Email */}
@@ -47,17 +116,21 @@ const Signup = () => {
                                 <input
                                     type="email"
                                     id="email"
-                                    placeholder=" "
-                                    className="peer w-full border-b border-gray-300 px-3 py-3 focus:outline-none focus:border-blue-500"
-                                />
-                                <label
-                                    htmlFor="email"
-                                    className="absolute left-3 top-3 text-gray-400 text-sm transition-all
-                                            peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
-                                            peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500"
-                                >
-                                    Enter Email
-                                </label>
+                                    placeholder="Enter Email..."
+                                    className="peer w-full border-b border-gray-300 px-3 py-3 focus:outline-none focus:border-cyan-500"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />                               
+                            </div>
+
+                            {/**Phone */}
+                            <div className="relative">
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    placeholder="Enter phone #..."
+                                    className="peer w-full border-b border-gray-300 px-3 py-3 focus:outline-none focus:border-cyan-500"
+                                    onChange={(e) => setPhone(e.target.value)}
+                                />                               
                             </div>
 
                             {/* Password */}
@@ -65,17 +138,10 @@ const Signup = () => {
                                 <input
                                     type="password"
                                     id="password"
-                                    placeholder=" "
-                                    className="peer w-full border-b border-gray-300 px-3 py-3 focus:outline-none focus:border-blue-500"
-                                />
-                                <label
-                                    htmlFor="password"
-                                    className="absolute left-3 top-3 text-gray-400 text-sm transition-all
-                                            peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
-                                            peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500"
-                                >
-                                    Enter Password
-                                </label>
+                                    placeholder="Enter password..."
+                                    className="peer w-full border-b border-gray-300 px-3 py-3 focus:outline-none focus:border-cyan-500"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />                              
                             </div>
 
                             {/* Confirm Password */}
@@ -83,17 +149,9 @@ const Signup = () => {
                                 <input
                                     type="password"
                                     id="confirmPassword"
-                                    placeholder=" "
-                                    className="peer w-full border-b border-gray-300 px-3 py-3 focus:outline-none focus:border-blue-500"
+                                    placeholder="Confirm password..."
+                                    className="peer w-full border-b border-gray-300 px-3 py-3 focus:outline-none focus:border-cyan-500"
                                 />
-                                <label
-                                    htmlFor="confirmPassword"
-                                    className="absolute left-3 top-3 text-gray-400 text-sm transition-all
-                                            peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
-                                            peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500"
-                                >
-                                    Confirm Password
-                                </label>
                             </div>
 
                             {/* Terms */}
@@ -107,11 +165,48 @@ const Signup = () => {
                                 </label>
                             </div>
 
+                            {/**custom msgs 
+                            {message && (
+                                <div className={`text-sm text-center ${message.includes("success")
+                                    ? "text-green-700"
+                                    : "text-amber-700"
+                                }`}>
+                                    {message}
+                                </div>    
+                            )} */}
+
+                            {message && (
+                                <div 
+                                className={`text-sm text-center ${isSuccess ? "text-cyan-600" : "text-amber-500"
+
+                                }`}>
+                                    {message}
+                                </div>
+                            )}
+
                             {/* Signup Button */}
-                            <button className="w-full bg-cyan-500 
-                                text-white py-3 rounded-lg 
-                                hover:bg-amber-600 transition cursor-pointer">
-                                Create Account
+                            <button 
+                                type="submit"
+                                disabled={isLoading || isSuccess}
+                                className={`
+                                w-full 
+                                py-3 rounded-lg flex items-center justify-center gap-2
+                                transition cursor-pointer 
+                                    ${isLoading || isSuccess
+                                    ? "bg-amber-500 cursor-not-allowed"
+                                    : "bg-amber-600 hover:bg-amber-600 hover:text-white"
+                                    }
+                                `}>
+                                 {isLoading ? (
+                                    <>
+                                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                                        Creating user account...
+                                    </>
+                                 ) : isSuccess ? (
+                                    "Success 🎉"
+                                 ) : (
+                                    "Create Account"
+                                 )}
                             </button>
 
                             {/* Divider */}

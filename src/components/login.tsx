@@ -1,18 +1,81 @@
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion } from "motion/react";
 import lpic1 from "../images/mttpic.jpg";
 
+//firebase
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../backend/firebase";
+import { AuthContext } from "../context/AuthContext";
+
 const Login = () => {
 
-    /*const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    //condition 
+    const navigate = useNavigate();
 
-    const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    //get, set variables
+    const [ email, setEmail ] = useState("");
+    const [ password, setPassword ] = useState("");
 
-    // TODO: Replace with real authentication logic
-    console.log("Login attempt:", { email, password });
-    }; */
+    //for custom msgs
+    //const [ message, setMessage ] = useState("");
+
+    const { message, setMessage } = useContext(AuthContext);
+
+    //logout msg (passed-via navigation)
+    const location = useLocation();
+    const logoutMessage = location.state?.message;
+
+    //loading state
+    const [isLoading, setIsLoading] = useState(false);
+    
+
+    //prevent msg sticking on refresh
+    /*useEffect(() => {
+        if (logoutMessage) {
+            navigate(location.pathname, { replace: true });
+        }
+    }, []); */
+
+    //clear msg after certain time (global)
+    useEffect(() => {
+        if (message) {
+            const timer = setTimeout(() => setMessage(""), 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [message]);
+
+
+    //function for login
+    const handleLogin = async(e: any) => {
+        e.preventDefault();
+
+        //custom error msg (empty fields)
+        /*if (!email || !password) {
+            setMessage("Please fill in all fields.");
+            return;
+        } */
+
+        try {
+            setIsLoading(true);
+            
+            await signInWithEmailAndPassword(auth, email, password);
+
+            await new Promise((res) => setTimeout(res, 500));
+
+            //setMessage("Login successful! Redirecting to Your Dashboard...");
+            //navigate("/dashboard", { replace: true }); 
+            //no navigate here  
+        }
+        catch(err: unknown) {
+            setIsLoading(false);
+
+            //custom error messages
+            setMessage("Invalid email or password. Please check and fill-out properly.❌");
+            navigate("/login", { replace: true });
+        }
+
+    };
 
     return (
         <>
@@ -38,24 +101,17 @@ const Login = () => {
                                     Login to manage account
                                 </p>
 
-                                <form className="space-y-4">
+                                <form className="space-y-4" onSubmit={handleLogin}>
 
                                     {/* Email */}
                                     <div className="relative">
                                         <input
                                             type="email"
                                             id="email"
-                                            placeholder=" "
-                                            className="peer w-full border-b border-gray-300 px-3 py-3 focus:outline-none focus:border-blue-500"
+                                            placeholder="Enter email"
+                                            className="peer w-full border-b border-gray-300 px-3 py-3 focus:outline-none focus:border-cyan-500"
+                                            onChange={(e) => setEmail(e.target.value)}
                                         />
-                                        <label
-                                            htmlFor="email"
-                                            className="absolute left-3 top-3 text-gray-400 text-sm transition-all
-                                                    peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
-                                                    peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500"
-                                        >
-                                            Enter email
-                                        </label>
                                     </div>
 
                                     {/* Password */}
@@ -63,18 +119,29 @@ const Login = () => {
                                         <input
                                             type="password"
                                             id="password"
-                                            placeholder=" "
-                                            className="peer w-full border-b border-gray-300 px-3 py-3 focus:outline-none focus:border-blue-500"
+                                            placeholder="Enter password"
+                                            className="peer w-full border-b border-gray-300 px-3 py-3 focus:outline-none focus:border-cyan-500"
+                                            onChange={(e) => setPassword(e.target.value)}
                                         />
-                                        <label
-                                            htmlFor="password"
-                                            className="absolute left-3 top-3 text-gray-400 text-sm transition-all
-                                                    peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
-                                                    peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500"
-                                        >
-                                            Enter Password
-                                        </label>
                                     </div>
+
+                                    {/**custom msgs */}
+                                    {message && (
+                                        <div className={`text-sm text-center ${message.includes("success")
+                                            ? "text-green-500"
+                                            : "text-amber-700"
+                                        }`}>
+                                            {message}
+                                        </div>    
+                                    )}
+
+                                    {/**logout msg */}
+                                    {logoutMessage && (
+                                        <div className="text-green-500 text-sm text-center mb-4">
+                                            {logoutMessage}
+                                        </div>    
+                                    )}
+
 
                                     {/* Options */}
                                     <div className="flex justify-between items-center text-sm">
@@ -89,12 +156,23 @@ const Login = () => {
                                     </div>
 
                                     {/* Login Button */}
-                                    <button className="w-full 
-                                    bg-cyan-500 py-3 rounded-lg 
-                                    hover:bg-amber-600 hover:text-white
-                                    transition cursor-pointer
-                                    shadow-lg">
-                                            Login
+                                    <button
+                                    type="submit"
+                                    disabled={isLoading} 
+                                    className={`w-full 
+                                    py-3 rounded-lg flex items-center justify-center gap-2 transition cursor-pointer
+                                    ${isLoading ? "bg-amber-400 cursor-not-allowed" : "bg-blue-500 hover:bg-amber-600 hover:text-white"}
+                                    `}
+                                    >
+                                        {isLoading ? (
+                                            <>
+                                                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                                                Logging in...
+                                            </>
+                                        ) : (
+                                            "Login"
+                                        )}
+                                            
                                     </button>
 
                                     {/* Divider */}

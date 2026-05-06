@@ -1,19 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Home, Info, MapPin, DollarSign, User, Menu, X } from "lucide-react";
-import { NavLink } from "react-router-dom";
-//import { motion } from "motion/react";
+import { NavLink, useNavigate } from "react-router-dom";
+//firebase
+import { auth } from "../backend/firebase";
+import { signOut } from "firebase/auth";
+import { AuthContext } from "../context/AuthContext";
 
-/*type MenuItem = {
-    name: string,
-    icon: React.ReactNode,
-    path: string;
-}; */
 
 const Sidebar = () => {
+
+    //variables
     const [isOpen, setIsOpen] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
     const [authOpen, setAuthOpen] = useState(false);
 
+    //handler for navigation
     const handleNavClick = () => {
 
         //close sidebar on mobile after click
@@ -59,13 +60,32 @@ const Sidebar = () => {
         );
     };
 
-    /*const menuItems: MenuItem[] = [
+    //auth state
+    const { user } = useContext(AuthContext);
 
-    { name: "Home", icon: <Home size={20} />, path: "/" },
-    { name: "About", icon: <Info size={20} />, path: "/about" },
-    { name: "Locations", icon: <MapPin size={20} />, path: "/location" },
-    { name: "Pricing", icon: <DollarSign size={20} />, path: "/pricing" }
-    ]; */
+    const { setMessage } = useContext(AuthContext);
+
+    //navigate
+    const navigate = useNavigate();
+
+     //logout handler
+    const handleLogout = async () => {
+
+        try {
+
+            await signOut(auth);
+
+            //timeout gives firebase a moment to update state
+            setTimeout(() => {
+                setMessage("Logout successfully✅");
+
+                navigate("/login", { replace: true }); //redirect after logout and post status msg
+            }, 200);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
 
     return (
         <>
@@ -145,45 +165,88 @@ const Sidebar = () => {
                             )}
                         </button>
 
-                        {/* Dropdown */}
                         {authOpen && (
-                            <div
-                                className="absolute left-0 mt-2 w-full bg-white border rounded-lg shadow-lg z-50"
-                                >
+                            <div className="absolute left-0 mt-2 w-full bg-white border rounded-lg shadow-lg z-50">
                                 <div className="flex flex-col gap-1">
+
+                                    {!user ? (
+                                        <>
+                                            {/* login */}
+                                            <NavLink
+                                            to="/login"
+                                            className="block px-4 py-2 hover:bg-amber-500 text-sm rounded-lg transition"
+                                            onClick={() => {
+                                                setAuthOpen(false);
+                                                handleNavClick();
+                                            }}
+                                            >
+                                            Login
+                                            </NavLink>
+
+                                            {/* signup */}
+                                            <NavLink
+                                            to="/signup"
+                                            className="block px-4 py-2 hover:bg-amber-500 text-sm rounded-lg transition"
+                                            onClick={() => {
+                                                setAuthOpen(false);
+                                                handleNavClick();
+                                            }}
+                                            >
+                                            Signup
+                                            </NavLink>
+                                        </>
+                                        ) : (
+                                        <>
+                                            {user && (
+                                                <div className="px-4 py-2 text-sm text-gray-500">
+                                                    {user?.name}
+                                                </div>
+                                            )}
+
+                                            {/* Logout */}
+                                            <button
+                                                onClick={handleLogout}
+                                                className="text-left px-4 py-2 
+                                                hover:bg-cyan-500 hover:text-white 
+                                                text-sm rounded-lg transition cursor-pointer"
+                                                >
+                                                    Logout
+                                            </button>
+
+                                            {/* dashboard */}
+                                            <NavLink
+                                            to="/dashboard"
+                                            className="block px-4 py-2 
+                                            hover:bg-amber-500 
+                                            hover:text-white
+                                            text-sm rounded-lg transition"
+                                            onClick={() => {
+                                                setAuthOpen(false);
+                                                handleNavClick();
+                                            }}
+                                            >
+                                                My Dashboard
+                                            </NavLink>
+                                            
+                                        </>
+                                    )}
+
+                                    {/* contact page - always visible */}
                                     <NavLink
-                                        to="/login"
-                                        className="block px-4 py-2 hover:bg-amber-500 text-sm rounded-lg transition"
-                                        onClick={() => {
-                                            setAuthOpen(false);
-                                            handleNavClick(); // also closes sidebar on mobile
-                                        }}
-                                    >
-                                        Login
-                                    </NavLink>
-                                    <NavLink
-                                        to="/signup"
-                                        className="block px-4 py-2 hover:bg-amber-500 text-sm rounded-lg transition"
-                                        onClick={() => {
-                                            setAuthOpen(false);
-                                            handleNavClick(); // also closes sidebar on mobile
-                                        }}
-                                    >
-                                        Signup
-                                    </NavLink>
-                                    <NavLink
-                                        to="/contact"
-                                        className="block px-4 py-2 hover:bg-amber-500 text-sm rounded-lg transition"
-                                        onClick={() => {
-                                            setAuthOpen(false);
-                                            handleNavClick(); // also closes sidebar on mobile
-                                        }}
+                                    to="/contact"
+                                    className="block px-4 py-2 
+                                    hover:bg-amber-500 hover:text-white 
+                                    text-sm rounded-lg transition"
+                                    onClick={() => {
+                                        setAuthOpen(false);
+                                        handleNavClick();
+                                    }}
                                     >
                                         Contact
                                     </NavLink>
-                                </div>
                             </div>
-                        )}    
+                        </div>
+                        )}
                     </div>
                 </nav>
             </aside>
