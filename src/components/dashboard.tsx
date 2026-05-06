@@ -15,34 +15,22 @@ type Stat = {
 
 const dashboard = () => {
     //auth state
-        const { user }  = useContext(AuthContext);
+    const { user }  = useContext(AuthContext);
 
-        const [currentDate, setCurrentDate] = useState("");
+    //const [currentDate, setCurrentDate] = useState("");
 
-        //state mgt calendar
-        //const [showSchedule, setShowSchedule] = useState(false);
-        //state mgt message box
-        //const[showMessages, setShowMessages] = useState(false);
+    //state mgt calendar
+    //const [showSchedule, setShowSchedule] = useState(false);
+    //state mgt message box
+    //const[showMessages, setShowMessages] = useState(false);
 
-        //for better UI state mgt control for quick actions
-        const [activePanel, setActivePanel] = useState<
-            "messages" | "schedule" | ""
-        >("");
+    //for better UI state mgt control for quick actions
+    const [activePanel, setActivePanel] = useState<
+        "messages" | "schedule" | ""
+    >("");
 
-        const navigate = useNavigate();
+    const navigate = useNavigate();
 
-        useEffect(() => {
-        const date = new Date().toLocaleDateString(undefined, {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        });
-
-        setCurrentDate(date);
-  }, []);
-
-  
     return (
         <>
             <div className="p-6 space-y-6 mx-auto min-h-screen">
