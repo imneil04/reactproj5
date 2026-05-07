@@ -23,7 +23,7 @@ const ScheduleCalendar = () => {
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow p-6 w-full max-w-md">
+    <div className="bg-white rounded-2xl shadow p-6 w-full max-w-md items-center mx-auto">
       
       <div className="flex items-center justify-between mb-4">
             <button
@@ -36,9 +36,11 @@ const ScheduleCalendar = () => {
                     )
                 )
                 }
-                className="px-3 py-1 rounded-lg bg-gray-100 hover:bg-gray-200"
+                className="px-3 py-1 rounded-lg bg-amber-100 
+                            hover:bg-amber-200 hover:text-white 
+                            transition cursor-pointer"
             >
-                ←
+                <i className="fa-solid fa-arrow-left"></i>
             </button>
 
             <h2 className="text-xl font-semibold">
@@ -56,9 +58,11 @@ const ScheduleCalendar = () => {
                         currentDate.getMonth() + 1,
                         1
                     ))}
-                className="px-3 py-1 rounded-lg bg-gray-100 hover:bg-gray-200"
+                className="px-3 py-1 rounded-lg bg-amber-100 
+                            hover:bg-amber-200 hover:text-white
+                            transition cursor-pointer"
             >
-                →
+                <i className="fa-solid fa-arrow-right"></i>
             </button>
         </div>
 
@@ -80,7 +84,7 @@ const ScheduleCalendar = () => {
             key={index}
             className={`
               h-10 flex items-center justify-center rounded-lg
-              ${day ? "bg-gray-100 hover:bg-blue-100 cursor-pointer" : ""}
+              ${day ? "bg-gray-100 hover:bg-cyan-100 cursor-pointer" : ""}
             `}
           >
             {day}
